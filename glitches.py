@@ -14,8 +14,17 @@ def delete_files_in_folder(path="test_folder"):
             print e
 
 
-def glitch_1(output_path="test_folder"):
-    files = read_file(output_path, "/Users/arashsaidi/Desktop/eagles/1.jpg", True)
+def rename_files(path="test"):
+    num = 0
+    for root, dirs, files in os.walk(path):
+        for f in files:
+            my_string = str(num)
+            os.rename(root + os.sep + f, root + os.sep + 'img' + my_string.zfill(4) + '.jpg')
+            num += 1
+
+
+def glitch_1(input_path, output_path="test_folder"):
+    files = read_file(output_path, input_path, True)
     f = files[0]
     new_f = files[1]
 
@@ -33,35 +42,13 @@ def glitch_1(output_path="test_folder"):
         count += 1
 
 
-def glitch_2(output_path="test_folder"):
-    files = read_file(output_path, "/Users/arashsaidi/Documents/pictures/jesuses/1.jpg", True)
-    f = files[0]
-    new_f = files[1]
-
-    count = 0
-    p_line = ""
-
-    for line in f:
-        temp = line
-
-        if count > 5 and random.randint(0, 10) > 9:
-            if random.randint(0, 10) > 8:
-                temp *= 3
-            elif len(temp) > random.randint(0, len(temp)):
-                temp += temp
-            else:
-                temp += p_line
-
-        new_f.write(temp)
-        count += 1
-
-        p_line = line * random.randint(0, 10)
-
+# rename_files()
 
 def run():
     delete_files_in_folder()
-    for i in range(20):
-        glitch_2()
+    for i in range(10):
+        glitch_1('95d8a678ba88f287b7cf6a5df802fcf3_1.png')
 
 
 run()
+rename_files('test_folder')
